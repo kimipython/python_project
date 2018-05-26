@@ -31,8 +31,6 @@ db = SQLAlchemy(app)
 redis_link = StrictRedis(host=config.REDIS_HOST,port=config.REDIS_POST,db=config.DB)
 
 
-
-
 @app.route('/')
 def index():
     return 'kimi'

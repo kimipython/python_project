@@ -3,6 +3,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from redis import StrictRedis
+from flask_wtf.csrf import CSRFProtect
 # 配置文件的加载
 
 
@@ -29,6 +30,9 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 # 在app里获取StrictRedis的信息
 redis_link = StrictRedis(host=config.REDIS_HOST,port=config.REDIS_POST,db=config.DB)
+
+# 开启csrf保护，由于现在使用的不是wtform表单，所有必须使用csrf莱进行保护
+CSRFProtect(app)
 
 
 @app.route('/')

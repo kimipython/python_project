@@ -6,6 +6,8 @@ from redis import StrictRedis
 from flask_wtf.csrf import CSRFProtect
 from flask_session import Session
 from flask import session
+from flask_script import Manager
+from flask_migrate import MigrateCommand,Migrate
 # 配置文件的加载
 
 
@@ -43,8 +45,18 @@ redis_link = StrictRedis(host=config.REDIS_HOST,port=config.REDIS_POST,db=config
 # 开启csrf保护，由于现在使用的不是wtform表单，所有必须使用csrf莱进行保护
 CSRFProtect(app)
 
-# 设置session
+# 设置session数据名存储的位置
 Session(app)
+
+# 设置脚本管理器
+manger = Manager(app)
+
+# 将app和数据库进行迁移
+migrate = Migrate(app,db)
+
+# 将数据库的迁移的命令添加到脚本管理器
+
+manger.add_command('mysql',MigrateCommand)
 
 
 @app.route('/')
@@ -54,4 +66,4 @@ def index():
 
 if __name__ == '__main__':
 
-    app.run(port=8888)
+    manger.run()

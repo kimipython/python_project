@@ -7,8 +7,10 @@ from flask_wtf.csrf import CSRFProtect
 from flask_session import Session
 from config import configs
 
+
 # 创建SQLALCHEMHY的对象
 db = SQLAlchemy()
+
 
 def creat_app(config_name):
     app = Flask(__name__)

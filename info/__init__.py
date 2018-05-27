@@ -26,7 +26,7 @@ def creat_app(config_name):
     # 设置session数据名存储的位置
     Session(app)
 
-# 将新创键的app返回回去
+#  将新创键的app返回回去
 
     return app
 

@@ -7,6 +7,8 @@ from flask_wtf.csrf import CSRFProtect
 from flask_session import Session
 from config import configs
 
+# 创建SQLALCHEMHY的对象
+db = SQLAlchemy()
 
 def creat_app(config_name):
     app = Flask(__name__)
@@ -15,8 +17,8 @@ def creat_app(config_name):
 
     app.config.from_object(configs[config_name])
 
-    # 在app里获取mysql数据库的对象
-    db = SQLAlchemy(app)
+    # 在app里获取mysql的数据库的对象
+    db.init_app(app)
     # 在app里获取StrictRedis的信息
     redis_link = StrictRedis(host=configs[config_name].REDIS_HOST,port=configs[config_name].REDIS_POST,db=configs[config_name].DB)
 
